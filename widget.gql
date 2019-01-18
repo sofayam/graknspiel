@@ -1,0 +1,40 @@
+# Mark has a hammer which he stores in his shed
+
+define
+
+name sub attribute
+    datatype string;
+
+stored sub attribute
+    datatype string;
+
+person sub entity;
+widget sub entity;
+person has name;
+widget has name;
+
+owner sub role;
+owned sub role;
+
+owning sub relationship
+    relates owner
+    relates owned
+    has stored;
+
+
+person plays owner;
+widget plays owned;
+
+insert
+
+$ha isa widget;
+$ha has name "hammer";
+
+$ma isa person;
+$ma has name "mark";
+
+$ow (owner: $ma, owned: $ha) isa owning;
+$ow has stored "shed";
+
+#  match $x ($a, $b) isa owning has stored $st;
+#  $a has name $n1; $b has name $n2;  get
