@@ -1,0 +1,80 @@
+# Marks hobbies are deduced on the basis of the tools he owns
+
+define
+
+name sub attribute
+    datatype string;
+
+stored sub attribute
+    datatype string;
+
+person sub entity
+    has name;
+widget sub entity
+    has name;
+
+hobby sub entity
+    has name;
+
+owner sub role;
+owned sub role;
+
+owning sub relationship
+    relates owner
+    relates owned
+    has stored;
+
+
+person plays owner;
+widget plays owned;
+
+fan sub role;
+obsession sub role;
+
+person plays fan;
+hobby plays obsession; 
+
+obsessed sub relationship
+    relates fan
+    relates obsession; 
+
+insert
+
+$ha isa widget has name "hammer";
+
+$ne isa widget has name "needles";
+
+$ma isa person has name "mark";
+
+$diy isa hobby has name "DIY";
+
+$knit isa hobby has name "knitting";
+
+$ow1 (owner: $ma, owned: $ha) isa owning;
+$ow2 (owner: $ma, owned: $ne) isa owning;
+
+$ow1 has stored "shed";
+
+define
+
+defineDIYer sub rule
+when {
+  (owner: $pe, owned: $wi) isa owning;
+  $wi isa widget has name "hammer";
+  $diy isa hobby has name "DIY";
+} then {
+    (fan: $pe, obsession: $diy) isa obsessed;
+};
+
+defineknitter sub rule
+when {
+  (owner: $pe, owned: $wi) isa owning;
+  $wi isa widget has name "needles";
+  $knit isa hobby has name "knitting";
+
+} then {
+    (fan: $pe, obsession: $knit) isa obsessed;
+};
+
+# query to find all hobbies
+# match ($a, $b) isa obsessed; $b has name $c; offset 0; limit 30; get;
