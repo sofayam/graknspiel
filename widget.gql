@@ -30,11 +30,38 @@ insert
 $ha isa widget;
 $ha has name "hammer";
 
+$ne isa widget;
+$ne has name "needles";
+
 $ma isa person;
 $ma has name "mark";
 
-$ow (owner: $ma, owned: $ha) isa owning;
-$ow has stored "shed";
+$ow1 (owner: $ma, owned: $ha) isa owning;
+# $ow2 (owner: $ma, owned: $ne) isa owning;
 
-#  match $x ($a, $b) isa owning has stored $st;
-#  $a has name $n1; $b has name $n2;  get
+$ow1 has stored "shed";
+
+#  query to match everything
+#  match $x ($a, $b) isa owning has stored $st;  $a has name $n1; $b has name $n2;  get
+
+define
+
+hobby sub attribute datatype string;
+
+person has hobby;
+
+defineDIYer sub rule
+when {
+  (owner: $pe, owned: $wi) isa owning;
+  $wi has name "hammer";
+} then {
+    $pe has hobby "DIY";
+};
+
+defineknitter sub rule
+when {
+  (owner: $pe, owned: $wi) isa owning;
+  $wi has name "needles";
+} then {
+    $pe has hobby "knitting";
+};
