@@ -77,4 +77,4 @@ when {
 };
 
 # query to find all hobbies
-# match ($a, $b) isa obsessed; $b has name $c; offset 0; limit 30; get;
+# match (fan: $a, obsession: $b) isa obsessed; $b has name $c; offset 0; limit 30; get;
