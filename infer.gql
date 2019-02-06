@@ -1,0 +1,28 @@
+define
+
+name sub attribute
+    datatype string;
+
+person sub entity,
+    has name,
+    plays employee;
+
+company sub entity,
+    has name,
+    plays employer;
+
+government sub entity,
+    has name,
+    plays employer;
+
+employment sub relationship,
+    relates employee,
+    relates employer;
+
+insert
+
+$bosch isa company has name "bosch";
+
+$mark isa person has name "mark";
+
+(employee: $mark, employer: $bosch) isa employment;

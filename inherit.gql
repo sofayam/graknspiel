@@ -1,0 +1,11 @@
+define
+
+person sub entity;
+
+player sub person;
+
+insert
+
+# $p isa person;
+
+$p isa player;
