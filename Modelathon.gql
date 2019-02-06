@@ -1,0 +1,125 @@
+define
+name sub attribute
+    datatype string;
+person sub entity;
+person has name;
+
+category sub entity;
+category has name;
+
+probability sub attribute
+    datatype double;
+
+goal sub category;
+interest sub category;
+ability sub category;
+posession sub category;
+characteristic sub category;
+habit sub category;
+
+
+person plays subject;
+category plays object;
+
+hasCategory sub relationship
+    relates subject
+    relates object
+    has probability;
+
+
+
+#########################################################
+##
+## Food
+##
+#########################################################
+
+# $croissant isa interest has name "Croissant";
+
+
+cuisineType sub attribute datatype string;
+style sub attribute datatype string;
+
+
+cuisinePreference sub interest
+    has cuisineType;
+
+restaurantStyle sub interest
+    has style;
+
+insert
+
+$hans isa person has name "Hans";
+$peter isa person has name "Peter";
+
+
+$thai isa cuisinePreference has cuisineType "thai";
+$fastfood isa restaurantStyle has style "fastfood";
+
+(subject: $hans, object: $thai) isa hasCategory has probability 1.0;
+(subject: $hans, object: $fastfood) isa hasCategory has probability 1.0;
+
+#########################################################################
+##
+## Physiology
+##
+#########################################################################
+
+define 
+
+bodyHeight sub attribute datatype long;
+
+bodyMeasurement sub characteristic
+    has bodyHeight;
+
+insert
+$hans isa person has name "Hans";
+$zweiMeter isa bodyMeasurement has bodyHeight 200;
+(subject: $hans, object: $zweiMeter) isa hasCategory has probability 1.0;
+
+
+#########################################################################
+##
+## Psychology
+##
+#########################################################################
+
+define
+
+stressLevel sub attribute datatype long;
+
+sensitivity sub attribute datatype string;
+
+stress sub characteristic
+    has stressLevel;
+
+priceSensitivity sub characteristic
+    has sensitivity;
+
+insert
+$hans isa person has name "Hans";
+$cool isa stress has stressLevel 0;
+$stressed isa stress has stressLevel 100;
+
+$mean isa priceSensitivity has sensitivity "high";
+$generous isa priceSensitivity has sensitivity "low";
+
+(subject: $hans, object: $cool) isa hasCategory has probability 0.5;
+
+(subject: $hans, object: $mean) isa hasCategory has probability 0.5;
+
+#############################################################################
+#
+# Travel
+#
+##############################################################################
+
+location sub attribute datatype string;
+
+destination sub goal
+    has location;
+
+
+$hans isa person has name "Hans";
+$renningen isa destination has location "Renningen";
+(subject: $hans, object: $renningen) isa hasCategory has probability 0.5;
